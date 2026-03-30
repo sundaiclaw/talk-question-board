@@ -1,0 +1,13 @@
+{
+  "name": "talk-question-board",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node server/index.mjs",
+    "build": "node -e \"console.log('Static build ready')\""
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

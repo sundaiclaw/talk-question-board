@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Talk Talk Question Board · Sundai Build</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Boston AI Tinkerers · Live talk mode</p>
+          <h1>Question Board</h1>
+          <p class="hero-copy">
+            Capture questions during a live talk, let the audience vote them up, and give the speaker AI-polished versions plus clear Active / Answered / Will not answer states.
+          </p>
+        </div>
+        <div class="hero-actions">
+          <button id="reset-demo" class="ghost-button" type="button">Reset demo data</button>
+          <a class="hero-link" href="https://boston.aitinkerers.org" target="_blank" rel="noreferrer">Event site ↗</a>
+        </div>
+      </header>
+
+      <main class="layout-grid">
+        <section class="panel composer-panel">
+          <div class="panel-heading">
+            <h2>Ask a question</h2>
+            <span class="pill">Anonymous-friendly</span>
+          </div>
+
+          <form id="question-form" class="question-form">
+            <label>
+              <span>Your question</span>
+              <textarea id="question-input" name="question" rows="4" maxlength="280" placeholder="What should the speaker go deeper on?" required></textarea>
+            </label>
+
+            <label>
+              <span>Your name <em>(optional)</em></span>
+              <input id="name-input" name="name" type="text" maxlength="60" placeholder="Leave blank to stay anonymous" />
+            </label>
+
+            <div class="form-footer">
+              <p class="helper-text">Audience members can vote questions up. The speaker view is built right into each card.</p>
+              <button class="primary-button" type="submit">Submit question</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel insights-panel">
+          <div class="panel-heading">
+            <h2>Board pulse</h2>
+            <span class="pill accent">Color = urgency</span>
+          </div>
+          <div id="metrics" class="metrics-grid"></div>
+          <div class="legend">
+            <div><span class="legend-dot active-dot"></span> Actively being answered</div>
+            <div><span class="legend-dot hot-dot"></span> Crowd favorite / highly voted</div>
+            <div><span class="legend-dot dim-dot"></span> Lower priority / fewer votes</div>
+          </div>
+        </section>
+
+        <section class="panel queue-panel queue-panel--main">
+          <div class="panel-heading sticky-heading">
+            <div>
+              <h2>Open questions</h2>
+              <p class="subheading">Most-voted questions float to the top automatically.</p>
+            </div>
+            <span id="open-count" class="pill">0 open</span>
+          </div>
+          <div id="open-list" class="question-list"></div>
+        </section>
+
+        <section class="panel queue-panel grouped-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Answered</h2>
+              <p class="subheading">Completed during the talk.</p>
+            </div>
+            <span id="answered-count" class="pill success">0</span>
+          </div>
+          <div id="answered-list" class="question-list question-list--compact"></div>
+        </section>
+
+        <section class="panel queue-panel grouped-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Will not answer</h2>
+              <p class="subheading">Out of scope or parked for later.</p>
+            </div>
+            <span id="dismissed-count" class="pill muted">0</span>
+          </div>
+          <div id="dismissed-list" class="question-list question-list--compact"></div>
+        </section>
+      </main>
+    </div>
+
+    <template id="question-card-template">
+      <article class="question-card">
+        <div class="question-main">
+          <div class="vote-rail">
+            <button class="vote-button" type="button" aria-label="Vote for this question">▲</button>
+            <span class="vote-count">0</span>
+            <span class="vote-label">votes</span>
+          </div>
+          <div class="question-content">
+            <div class="question-meta-row">
+              <span class="question-status-tag">Open</span>
+              <span class="question-author"></span>
+              <span class="question-time"></span>
+            </div>
+            <p class="question-text"></p>
+            <div class="question-footer-row">
+              <span class="question-priority"></span>
+              <div class="moderator-actions">
+                <button class="mini-button active-button" type="button">Mark active</button>
+                <button class="mini-button answered-button" type="button">Answered</button>
+                <button class="mini-button dismissed-button" type="button">Will not answer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
